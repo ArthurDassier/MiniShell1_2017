@@ -7,11 +7,21 @@
 
 #include "my.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-	char	*str[] = {argv[1], NULL, NULL};
+	char	*str = malloc(1000);
+	char	*buf[] = {"Tamer", NULL};
+	int	lol = 0;
+	pid_t	pid;
 
-	printf("PID : %d\n", getpid());
-	execve(str[0], str, NULL);
+	while (1) {
+		my_putstr("ZSH_2000: ");
+		lol = read(0, str, 50);
+		str[lol - 1] = '\0';
+		if ((pid = fork()) == 0)
+			execve(str, buf, NULL);
+		else
+			waitpid(pid, 0, 0);
+	}
 	return (0);
 }

@@ -7,6 +7,9 @@
 
 #ifndef MYLIB_H
 #define MYLIB_H
+
+#include <sys/wait.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdarg.h>
