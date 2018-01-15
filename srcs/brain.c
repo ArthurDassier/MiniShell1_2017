@@ -11,7 +11,7 @@ int main()
 {
 	char	*str = malloc(55);
 	int	lol = 0;
-	char	*buf[] = {"Tamer", NULL};
+	char	*buf[] = {"NULL", NULL};
 	char	bin[5] = "/bin/";
 	pid_t	pid;
 
