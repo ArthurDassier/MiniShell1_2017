@@ -30,17 +30,17 @@ void ls_tests(char *str, list_path *list_p, char **env)
 	int		i = get_path(env);
 	int		letter = 5;
 	char		*tmp;
-	temp = list_p;
 
+	temp = list_p;
 	while (j != i) {
 		temp = temp->next;
 		++j;
 	}
 	tmp = test1(str, temp->path_name, &letter);
-	while (stat(tmp, &sb) == -1) {
+	while (stat(tmp, &sb) == -1 && letter < my_strlen(temp->path_name)) {
 		tmp = test1(str, temp->path_name, &letter);
 		++letter;
 	}
-	execve(tmp, buf, NULL);
+	execve(tmp, buf, env);
 	error_handler(str);
 }
