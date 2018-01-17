@@ -7,21 +7,57 @@
 
 #include "my.h"
 
-int main()
+int get_path(char **env)
 {
-	char	*str = malloc(55);
-	int	lol = 0;
-	char	*buf[] = {"NULL", NULL};
+	for (int i = 0; env[i]; ++i) {
+		if (env[i][0] == 'P' && env[i][1] == 'A' &&
+		env[i][2] == 'T' && env[i][3] == 'H' && env[i][4] == '=')
+			return (i);
+	}
+	return (-1);
+}
+
+list_path *init_chain_path(char **env)
+{
+	list_path	*element = malloc(sizeof(list_path));
+
+	element = init_cl(env[0]);
+	for (int i = 1; env[i]; ++i)
+		insert_end(&element, env[i]);
+	return (element);
+}
+
+int thef(char *str, char **env, list_path *list_p)
+{
+	int	i = get_path(env);
 	pid_t	pid;
 
+	if ((pid = fork()) == 0)
+		ls_tests(str, list_p, env);
+	else
+		waitpid(pid, 0, 0);
+	return (84);
+}
+
+int fct_while(char *str, char **env)
+{
+	int		value = 0;
+	list_path	*list_p = init_chain_path(env);
+
 	while (1) {
-		my_putstr("ZSH_2000: ");
-		lol = read(0, str, 50);
-		str[lol - 1] = '\0';
-		if ((pid = fork()) == 0)
-			execve(str, buf, NULL);
-		else
-			waitpid(pid, 0, 0);
+		my_putstr("[Dis_is_de_we]$> ");
+		value = read(0, str, 50);
+		str[value - 1] = '\0';
+		thef(str, env, list_p);
 	}
+	//print_list(list_p);
+	return (0);
+}
+
+int main(int argc, char *argv[], char **env)
+{
+	char	*str = malloc(55);
+
+	fct_while(str, env);
 	return (0);
 }

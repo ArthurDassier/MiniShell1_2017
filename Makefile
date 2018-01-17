@@ -6,6 +6,9 @@
 ##
 
 SRC	=	srcs/brain.c		\
+		srcs/chainlist.c	\
+		srcs/errors.c		\
+		srcs/ls_command.c	\
 
 OBJ	=	$(SRC:.c = .o)
 
