@@ -27,16 +27,14 @@ list_path *init_chain_path(char **env)
 	return (element);
 }
 
-int thef(char *str, char **env, list_path *list_p)
+void wait_com(char *str, char **env, list_path *list_p)
 {
-	int	i = get_path(env);
 	pid_t	pid;
 
 	if ((pid = fork()) == 0)
 		ls_tests(str, list_p, env);
 	else
 		waitpid(pid, 0, 0);
-	return (84);
 }
 
 int fct_while(char *str, char **env)
@@ -48,7 +46,7 @@ int fct_while(char *str, char **env)
 		my_putstr("[Dis_is_de_we]$> ");
 		value = read(0, str, 50);
 		str[value - 1] = '\0';
-		thef(str, env, list_p);
+		wait_com(str, env, list_p);
 	}
 	//print_list(list_p);
 	return (0);
@@ -58,6 +56,11 @@ int main(int argc, char *argv[], char **env)
 {
 	char	*str = malloc(55);
 
+	(void)argv;
+	if (argc > 1) {
+		my_puterror("Too many arguments !\n");
+		return (84);
+	}
 	fct_while(str, env);
 	return (0);
 }
