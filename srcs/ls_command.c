@@ -7,46 +7,43 @@
 
 #include "my.h"
 
+char **multi_arg(char *tmp, char **buffer, int i)
+{
+	int	j = 1;
+	int	count = 0;
+
+	buffer[0] = tmp;
+	while (tmp[i] != '\0') {
+		if (tmp[i] == ' ') {
+			++j;
+			buffer[j] = malloc(100);
+			count = 0;
+			++i;
+		}
+		buffer[j][count] = tmp[i];
+		++count;
+		++i;
+	}
+	buffer[j + 1] = NULL;
+	return (buffer);
+}
+
 char **set_buffer(char *tmp)
 {
 	int	i = 0;
-	int	j = 0;
-	int	count = 0;
-	int	count2 = 0;
-	char	*arg = malloc(100);
 	char 	**buffer = malloc(100);
 
 	buffer[0] = malloc(100);
 	buffer[1] = malloc(100);
-	while (tmp[i] != ' ' && tmp[i] != '\0') {
+	while (tmp[i] != ' ' && tmp[i] != '\0')
 		++i;
-	}
 	if (tmp[i] == '\0') {
 		buffer[0] = tmp;
 		buffer[1] = NULL;
 		return (buffer);
 	}
-	if (tmp[i] == ' ')
-		tmp[i] = '\0';
-	j = i + 1;
-	while (tmp[j] != '\0') {
-		arg[count] = tmp[j];
-		++j;
-		++count;
-	}
-	arg[count] = '\0';
-	while (tmp[count2] != '\0') {
-		buffer[0][count2] = tmp[count2];
-		++count2;
-	}
-	buffer[0][count2] = '\0';
-	count2 = 0;
-	while (arg[count2] != '\0') {
-		buffer[1][count2] = arg[count2];
-		++count2;
-	}
-	buffer[2] = NULL;
-	return (buffer);
+	tmp[i] = '\0';
+	return (multi_arg(tmp, buffer, i + 1));
 }
 
 char *lead_path(char *str, char *path, int *j)
