@@ -32,13 +32,14 @@ int check_existing(char *checking, char *str)
 	int	i = 0;
 	int	j = 7;
 
-	while (checking[i] != '=') {
+	while (checking[i] != '=' || str[j] != ' ') {
 		if (checking[i] != str[j])
 			return (0);
 		++i;
 		++j;
 	}
 	++i;
+	++j;
 	while (str[j] != '\0') {
 		checking[i] = str[j];
 		++i;
