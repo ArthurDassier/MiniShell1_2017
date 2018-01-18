@@ -31,7 +31,7 @@ char **multi_arg(char *tmp, char **buffer, int i)
 char **set_buffer(char *tmp)
 {
 	int	i = 0;
-	char 	**buffer = malloc(100);
+	char	**buffer = malloc(100);
 
 	buffer[0] = malloc(100);
 	buffer[1] = malloc(100);

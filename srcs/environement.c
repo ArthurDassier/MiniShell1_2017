@@ -40,7 +40,6 @@ void check_envvar(char *str, list_path *list_p)
 	}
 	if (i == 0) {
 		insert_end(&list_p, str);
-		printf("--%s--\n", str);
 	}
 }
 

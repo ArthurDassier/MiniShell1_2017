@@ -32,7 +32,6 @@ void insert_end(list_path **first_elem, char *path)
 	list_path	*new_elem = malloc(sizeof(list_path));
 	list_path	*actual = (*first_elem);
 
-	printf("[%s]\n", path);
 	if (new_elem == NULL)
 		return;
 	new_elem->path_name = path;
