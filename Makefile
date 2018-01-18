@@ -10,6 +10,7 @@ SRC	=	srcs/brain.c		\
 		srcs/errors.c		\
 		srcs/bin_commands.c	\
 		srcs/arguments.c	\
+		srcs/environement.c	\
 
 OBJ	=	$(SRC:.c = .o)
 

@@ -30,5 +30,6 @@ list_path *init_chain_path(char **env);
 int get_path(char **env);
 int fct_while(char *str, char **env);
 void check_arg(char *str, list_path *list_p, char **env);
+void modif_env(char *str, list_path *list_p);
 
 #endif

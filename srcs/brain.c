@@ -32,7 +32,7 @@ void wait_com(char *str, char **env, list_path *list_p)
 	pid_t	pid;
 
 	if ((pid = fork()) == 0)
-		check_arg(str, list_p, env);
+		bin_tests(str, list_p, env);
 	else
 		waitpid(pid, 0, 0);
 }
@@ -46,7 +46,7 @@ int fct_while(char *str, char **env)
 		my_putstr("[Dis_is_de_we]$> ");
 		value = read(0, str, 50);
 		str[value - 1] = '\0';
-		wait_com(str, env, list_p);
+		check_arg(str, list_p, env);
 	}
 	return (0);
 }
