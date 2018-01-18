@@ -47,8 +47,7 @@ void print_list(list_path *liste)
 
 	temp = liste;
 	while (temp != NULL) {
-		my_printf("%s ->\n", temp->path_name);
+		my_printf("%s\n", temp->path_name);
 		temp = temp->next;
 	}
-	my_printf("NULL\n");
 }

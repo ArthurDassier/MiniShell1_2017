@@ -8,7 +8,8 @@
 SRC	=	srcs/brain.c		\
 		srcs/chainlist.c	\
 		srcs/errors.c		\
-		srcs/ls_command.c	\
+		srcs/bin_commands.c	\
+		srcs/arguments.c	\
 
 OBJ	=	$(SRC:.c = .o)
 

@@ -32,7 +32,7 @@ void wait_com(char *str, char **env, list_path *list_p)
 	pid_t	pid;
 
 	if ((pid = fork()) == 0)
-		ls_tests(str, list_p, env);
+		check_arg(str, list_p, env);
 	else
 		waitpid(pid, 0, 0);
 }
@@ -48,7 +48,6 @@ int fct_while(char *str, char **env)
 		str[value - 1] = '\0';
 		wait_com(str, env, list_p);
 	}
-	//print_list(list_p);
 	return (0);
 }
 

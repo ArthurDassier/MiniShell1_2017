@@ -60,7 +60,7 @@ char *lead_path(char *str, char *path, int *j)
 	return (tmp);
 }
 
-void ls_tests(char *str, list_path *list_p, char **env)
+void bin_tests(char *str, list_path *list_p, char **env)
 {
 	char		**buf;
 	list_path	*temp;
