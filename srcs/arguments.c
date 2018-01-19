@@ -32,6 +32,13 @@ int check_unsetenv(char *str)
 	return (-1);
 }
 
+int check_cd(char *str)
+{
+	if (str[0] == 'c' && str[1] == 'd')
+		return (0);
+	return (-1);
+}
+
 void check_arg(char *str, list_path *list_p, char **env)
 {
 	if (check_env(str) != -1) {
@@ -40,6 +47,8 @@ void check_arg(char *str, list_path *list_p, char **env)
 		modif_env(str, list_p);
 	} else if (check_unsetenv(str) != -1) {
 		del_env(str, list_p);
+	} else if (check_cd(str) != -1) {
+		cd_arg(str, list_p, env);
 	} else
 		wait_com(str, env, list_p);
 }

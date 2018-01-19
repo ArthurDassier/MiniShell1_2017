@@ -11,6 +11,7 @@ SRC	=	srcs/brain.c		\
 		srcs/bin_commands.c	\
 		srcs/arguments.c	\
 		srcs/environement.c	\
+		srcs/cd_call.c		\
 
 OBJ	=	$(SRC:.c = .o)
 
