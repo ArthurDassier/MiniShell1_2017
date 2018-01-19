@@ -73,3 +73,18 @@ void modif_env(char *str, list_path *list_p)
 	else
 		print_list(list_p);
 }
+
+void del_env(char *str, list_path *list_p)
+{
+	char	*path = malloc(100);
+	int	i = 9;
+	int	j = 0;
+
+	while (str[i] != '\0') {
+		path[j] = str[i];
+		++i;
+		++j;
+	}
+	path[j] = '\0';
+	del_elem_list(&list_p, path);
+}

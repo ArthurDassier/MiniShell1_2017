@@ -41,6 +41,25 @@ void insert_end(list_path **first_elem, char *path)
 	actual->next = new_elem;
 }
 
+void del_elem_list(list_path **first_elem, char *path)
+{
+	list_path	*actual = (*first_elem);
+	int		i = 0;
+
+	while (actual->next != NULL) {
+		for (i = 0; actual->next->path_name[i] != '=' && path[i]; ++i) {
+			if (actual->next->path_name[i] != path[i])
+				break;
+		}
+		if (actual->next->path_name[i] == '=') {
+			actual->next = actual->next->next;
+			return;
+		}
+
+		actual = actual->next;
+	}
+}
+
 void print_list(list_path *liste)
 {
 	list_path	*temp;

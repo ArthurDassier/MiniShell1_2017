@@ -23,12 +23,23 @@ int check_setenv(char *str)
 	return (-1);
 }
 
+int check_unsetenv(char *str)
+{
+	if (str[0] == 'u' && str[1] == 'n' && str[2] == 's' &&
+		str[3] == 'e' && str[4] == 't' && str[5] == 'e' &&
+		str[6] == 'n' && str[7] == 'v')
+		return (0);
+	return (-1);
+}
+
 void check_arg(char *str, list_path *list_p, char **env)
 {
 	if (check_env(str) != -1) {
 		print_list(list_p);
 	} else if (check_setenv(str) != -1) {
 		modif_env(str, list_p);
+	} else if (check_unsetenv(str) != -1) {
+		del_env(str, list_p);
 	} else
 		wait_com(str, env, list_p);
 }
