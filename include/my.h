@@ -16,7 +16,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include "gnl.h"
 #include "minishell1.h"
 #include "printf.h"
 

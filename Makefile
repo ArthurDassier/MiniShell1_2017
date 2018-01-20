@@ -26,7 +26,7 @@ CC	=	gcc -g
 
 C_FLAGS	=	-Wall -Wextra
 
-LIB_FLAG	=	-L$(LIB_DIR) -lmy  -lgnl
+LIB_FLAG	=	-L$(LIB_DIR) -lmy
 
 INCL_FLAG	=	-I$(MY.H_DIR)
 
