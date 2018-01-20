@@ -11,7 +11,7 @@ int get_pwd(char **env)
 {
 	for (int i = 0; env[i]; ++i) {
 		if (env[i][0] == 'P' && env[i][1] == 'W' &&
-		env[i][2] == 'D' && env[i][3] == '=')
+			env[i][2] == 'D' && env[i][3] == '=')
 			return (i);
 	}
 	return (-1);
@@ -36,7 +36,7 @@ void modif_path(char **env, list_path *list_p)
 
 void cd_arg(char *str, list_path *list_p, char **env)
 {
-	char	*tmp = malloc(100);
+	char	*tmp = malloc(sizeof(char) * 1024);
 	int	i = 3;
 	int	j = 0;
 

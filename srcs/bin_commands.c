@@ -16,7 +16,7 @@ char **multi_arg(char *tmp, char **buffer, int i)
 	while (tmp[i] != '\0') {
 		if (tmp[i] == ' ') {
 			++j;
-			buffer[j] = malloc(100);
+			buffer[j] = malloc(sizeof(char) * 100);
 			count = 0;
 			++i;
 		}
@@ -31,10 +31,10 @@ char **multi_arg(char *tmp, char **buffer, int i)
 char **set_buffer(char *tmp)
 {
 	int	i = 0;
-	char	**buffer = malloc(100);
+	char	**buffer = malloc(sizeof(char) * 100);
 
-	buffer[0] = malloc(100);
-	buffer[1] = malloc(100);
+	buffer[0] = malloc(sizeof(char) * 100);
+	buffer[1] = malloc(sizeof(char) * 100);
 	while (tmp[i] != ' ' && tmp[i] != '\0')
 		++i;
 	if (tmp[i] == '\0') {
@@ -48,7 +48,7 @@ char **set_buffer(char *tmp)
 
 char *lead_path(char *str, char *path, int *j)
 {
-	char	*tmp = malloc(100);
+	char	*tmp = malloc(sizeof(char) * 1024);
 	int	count = 0;
 
 	while (path[*j] != ':' && path[*j]) {

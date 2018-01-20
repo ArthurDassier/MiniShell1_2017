@@ -11,7 +11,7 @@ char *my_set(char *str)
 {
 	int	i = 0;
 	int	j = 0;
-	char	*tmp = malloc(100);
+	char	*tmp = malloc(sizeof(char) * 1024);
 
 	while (str[i] != ' ') {
 		++i;
@@ -76,7 +76,7 @@ void modif_env(char *str, list_path *list_p)
 
 void del_env(char *str, list_path *list_p)
 {
-	char	*path = malloc(100);
+	char	*path = malloc(sizeof(char) * 1024);
 	int	i = 9;
 	int	j = 0;
 

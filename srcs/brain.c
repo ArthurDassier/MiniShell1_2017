@@ -43,8 +43,8 @@ int fct_while(char *str, char **env)
 	list_path	*list_p = init_chain_path(env);
 
 	while (1) {
-		my_putstr("[Dis_is_de_we]$> ");
-		value = read(0, str, 50);
+		my_putstr("[Darth_Shell]$> ");
+		value = read(0, str, 100);
 		str[value - 1] = '\0';
 		check_arg(str, list_p, env);
 	}
@@ -53,7 +53,7 @@ int fct_while(char *str, char **env)
 
 int main(int argc, char *argv[], char **env)
 {
-	char	*str = malloc(55);
+	char	*str = malloc(sizeof(char) * 1024);
 
 	(void)argv;
 	if (argc > 1) {
