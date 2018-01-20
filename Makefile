@@ -22,11 +22,11 @@ LIB_DIR	=	./lib
 
 MY.H_DIR	=	./include
 
-CC	=	gcc -g3
+CC	=	gcc -g
 
 C_FLAGS	=	-Wall -Wextra
 
-LIB_FLAG	=	-L$(LIB_DIR) -lmy
+LIB_FLAG	=	-L$(LIB_DIR) -lmy  -lgnl
 
 INCL_FLAG	=	-I$(MY.H_DIR)
 
