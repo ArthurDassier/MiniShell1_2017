@@ -12,6 +12,7 @@ SRC	=	srcs/brain.c		\
 		srcs/arguments.c	\
 		srcs/environement.c	\
 		srcs/cd_call.c		\
+		srcs/exit.c		\
 
 OBJ	=	$(SRC:.c = .o)
 

@@ -49,6 +49,8 @@ void check_arg(char *str, list_path *list_p, char **env)
 		del_env(str, list_p);
 	} else if (check_cd(str) != -1) {
 		cd_arg(str, list_p, env);
+	} else if (check_exit(str) != -1) {
+		exit_me(str);
 	} else
 		wait_com(str, env, list_p);
 }

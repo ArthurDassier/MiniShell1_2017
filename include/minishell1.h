@@ -40,5 +40,7 @@ void modif_env(char *str, list_path *list_p);
 void del_env(char *str, list_path *list_p);
 void cd_arg(char *str, list_path *list_p, char **env);
 char *my_strcat_pwd(char *dest, char const *src);
+void exit_me(char *str);
+int check_exit(char *str);
 
 #endif
