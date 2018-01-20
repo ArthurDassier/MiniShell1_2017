@@ -44,8 +44,10 @@ int fct_while(char *str, char **env)
 
 	while (1) {
 		my_putstr("[Darth_Shell]$> ");
-		if ((value = read(0, str, 100)) == 0)
+		if ((value = read(0, str, 100)) == 0) {
+			my_putstr("exit\n");
 			exit(0);
+		}
 		str[value - 1] = '\0';
 		check_arg(str, list_p, env);
 	}
