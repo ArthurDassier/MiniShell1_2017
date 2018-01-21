@@ -75,7 +75,7 @@ void bin_tests(char *str, list_path *list_p, char **env)
 	}
 	tmp = lead_path(str, temp->path_name, &letter);
 	while (access(tmp, F_OK) == -1 && access(tmp, X_OK) == -1
-		&& letter < my_strlen(temp->path_name)) {
+	&& letter < my_strlen(temp->path_name)) {
 		tmp = lead_path(str, temp->path_name, &letter);
 		buf = set_buffer(tmp);
 		++letter;

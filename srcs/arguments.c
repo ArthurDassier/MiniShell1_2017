@@ -26,8 +26,8 @@ int check_setenv(char *str)
 int check_unsetenv(char *str)
 {
 	if (str[0] == 'u' && str[1] == 'n' && str[2] == 's' &&
-		str[3] == 'e' && str[4] == 't' && str[5] == 'e' &&
-		str[6] == 'n' && str[7] == 'v')
+	str[3] == 'e' && str[4] == 't' && str[5] == 'e' &&
+	str[6] == 'n' && str[7] == 'v')
 		return (0);
 	return (-1);
 }

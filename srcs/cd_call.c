@@ -11,7 +11,7 @@ int get_pwd(char **env)
 {
 	for (int i = 0; env[i]; ++i) {
 		if (env[i][0] == 'P' && env[i][1] == 'W' &&
-			env[i][2] == 'D' && env[i][3] == '=')
+		env[i][2] == 'D' && env[i][3] == '=')
 			return (i);
 	}
 	return (-1);
