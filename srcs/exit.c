@@ -20,6 +20,7 @@ void exit_me(char *str)
 	int	i = 6;
 	int	j = 0;
 
+	my_putstr("exit\n");
 	if (my_strlen(str) == 4)
 		exit(0);
 	else {
