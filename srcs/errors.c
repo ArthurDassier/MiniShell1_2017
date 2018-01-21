@@ -12,5 +12,5 @@ void error_handler(char *str)
 	my_puterror("Command not found: ");
 	my_puterror(str);
 	my_puterror("\n");
-	exit(84);
+	exit(1);
 }
