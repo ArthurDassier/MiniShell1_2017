@@ -24,7 +24,7 @@ char *my_set(char *str)
 		++j;
 		++i;
 	}
-	if (tmp[j] != '=') {
+	if (tmp[j] != '=' && tmp[j-1] != '=') {
 		tmp[j] = '=';
 		++j;
 	}
@@ -71,7 +71,6 @@ void check_envvar(char *str, list_path *list_p)
 	if (i == 0) {
 		str = my_set(str);
 		insert_end(&list_p, str);
-		print_list(list_p);
 	}
 }
 
