@@ -34,18 +34,42 @@ void modif_path(char **env, list_path *list_p)
 	temp->path_name = buff2;
 }
 
+void cd_home(char **env, list_path *list_p)
+{
+	int	i = get_pwd(env);
+	char	*tmp = malloc(sizeof(char) * 1024);
+	int	slash = 0;
+	int	j = 4;
+	int	count = 0;
+
+	while (slash != 3) {
+		if (env[i][j] == '/')
+			++slash;
+		tmp[count] = env[i][j];
+		++count;
+		++j;
+	}
+	tmp[count] = '\0';
+	chdir(tmp);
+	modif_path(env, list_p);
+}
+
 void cd_arg(char *str, list_path *list_p, char **env)
 {
 	char	*tmp = malloc(sizeof(char) * 1024);
 	int	i = 3;
 	int	j = 0;
 
-	while (str[i] != '\0') {
-		tmp[j] = str[i];
-		++i;
-		++j;
+	if (str[i] == '\0') {
+		cd_home(env, list_p);
+	} else {
+		while (str[i] != '\0') {
+			tmp[j] = str[i];
+			++i;
+			++j;
+		}
+		tmp[j] = '\0';
+		chdir(tmp);
+		modif_path(env, list_p);
 	}
-	tmp[j] = '\0';
-	chdir(tmp);
-	modif_path(env, list_p);
 }

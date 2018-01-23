@@ -80,7 +80,6 @@ void bin_tests(char *str, list_path *list_p, char **env)
 		buf = set_buffer(tmp);
 		++letter;
 	}
-	printf("%s\n", tmp);
 	execve(tmp, buf, env);
 	error_handler(str);
 }
