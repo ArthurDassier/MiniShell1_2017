@@ -24,6 +24,11 @@ char *my_set(char *str)
 		++j;
 		++i;
 	}
+	if (tmp[j] != '=') {
+		tmp[j] = '=';
+		++j;
+	}
+	tmp[j] = '\0';
 	return (tmp);
 }
 
