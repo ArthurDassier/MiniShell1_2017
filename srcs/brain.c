@@ -30,11 +30,15 @@ list_path *init_chain_path(char **env)
 void wait_com(char *str, char **env, list_path *list_p)
 {
 	pid_t	pid;
+	int	wstatus;
 
 	if ((pid = fork()) == 0)
 		bin_tests(str, list_p, env);
-	else
-		waitpid(pid, 0, 0);
+	else {
+		waitpid(pid, &wstatus, 0);
+		if (WCOREDUMP(wstatus))
+			write(1, "Core dump\n", 10);
+	}
 }
 
 int fct_while(char *str, char **env)
@@ -43,9 +47,9 @@ int fct_while(char *str, char **env)
 	list_path	*list_p = init_chain_path(env);
 
 	while (1) {
-		my_putstr("[Darth_Shell]$> ");
+		write(1, "[Darth_Shell]$> ", 16);
 		if ((value = read(0, str, 100)) == 0) {
-			my_putstr("exit\n");
+			write(1, "exit\n", 5);
 			exit(0);
 		}
 		str[value - 1] = '\0';

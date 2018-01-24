@@ -64,15 +64,12 @@ void bin_tests(char *str, list_path *list_p, char **env)
 {
 	char		**buf;
 	list_path	*temp;
-	int		i = get_path(env);
 	int		letter = 5;
 	char		*tmp;
 
 	temp = list_p;
-	while (i != 0) {
+	for (int i = get_path(env); i != 0; i--)
 		temp = temp->next;
-		--i;
-	}
 	tmp = lead_path(str, temp->path_name, &letter);
 	while (access(tmp, F_OK) == -1 && access(tmp, X_OK) == -1
 	&& letter < my_strlen(temp->path_name)) {
@@ -81,5 +78,7 @@ void bin_tests(char *str, list_path *list_p, char **env)
 		++letter;
 	}
 	execve(tmp, buf, env);
+	str[my_strlen(str)] = '\0';
+	execve(str, buf, env);
 	error_handler(str);
 }
