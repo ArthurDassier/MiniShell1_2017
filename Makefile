@@ -13,6 +13,7 @@ SRC	=	srcs/brain.c		\
 		srcs/environement.c	\
 		srcs/cd_call.c		\
 		srcs/exit.c		\
+		srcs/seg_dump.c		\
 
 OBJ	=	$(SRC:.c = .o)
 

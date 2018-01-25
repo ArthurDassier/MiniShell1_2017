@@ -36,8 +36,7 @@ void wait_com(char *str, char **env, list_path *list_p)
 		bin_tests(str, list_p, env);
 	else {
 		waitpid(pid, &wstatus, 0);
-		if (WCOREDUMP(wstatus))
-			write(1, "Core dump\n", 10);
+		fault(wstatus);
 	}
 }
 

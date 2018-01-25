@@ -43,5 +43,6 @@ char *my_strcat_pwd(char *dest, char const *src);
 void exit_me(char *str);
 int check_exit(char *str);
 void check_sig(int sig);
+void fault(int wstatus);
 
 #endif
