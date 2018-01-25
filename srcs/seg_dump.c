@@ -9,8 +9,16 @@
 
 void fault(int wstatus)
 {
-	if (WTERMSIG(wstatus))
-	write(2, "segmentation fault\n", 19);
-	if (WCOREDUMP(wstatus))
-		write(2, "core dumped\n", 12);
+	int	i = 0;
+
+	if (WTERMSIG(wstatus)) {
+		write(2, "Segmentation fault", 19);
+		i = 1;
+	}
+	if (WCOREDUMP(wstatus)) {
+		write(2, " (core dumped)", 14);
+		i = 1;
+	}
+	if (i == 1)
+		write(1, "\n", 1);
 }
