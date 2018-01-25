@@ -77,8 +77,7 @@ void bin_tests(char *str, list_path *list_p, char **env)
 		buf = set_buffer(tmp);
 		++letter;
 	}
-	execve(tmp, buf, env);
-	str[my_strlen(str)] = '\0';
 	execve(str, buf, env);
+	execve(tmp, buf, env);
 	error_handler(str);
 }
