@@ -56,6 +56,7 @@ char *lead_path(char *str, char *path, int *j)
 		++*j;
 		++count;
 	}
+	tmp[count] = '\0';
 	tmp = my_strcat(tmp, str);
 	return (tmp);
 }
