@@ -61,6 +61,8 @@ int main(int argc, char *argv[], char **env)
 {
 	char	*str = malloc(sizeof(char) * 1024);
 
+	if (str == NULL)
+		return (84);
 	(void)argv;
 	if (argc > 1) {
 		my_puterror("Too many arguments !\n");
