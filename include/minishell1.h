@@ -44,5 +44,7 @@ void exit_me(char *str);
 int check_exit(char *str);
 void check_sig(int sig);
 void fault(int wstatus);
+int check_alpha_num(char *str);
+char *check_eq(char *str);
 
 #endif

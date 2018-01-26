@@ -35,5 +35,7 @@ int my_put_nbr_base(int nb, char *base);
 long my_put_nbr_base_long(long long nb, char *base);
 char *my_realloc(char *str);
 void my_puterror(char *str);
+int cti(char c);
+char itc(int nb);
 
 #endif
