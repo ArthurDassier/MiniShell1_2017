@@ -14,6 +14,7 @@ SRC	=	srcs/brain.c		\
 		srcs/cd_call.c		\
 		srcs/exit.c		\
 		srcs/seg_dump.c		\
+		srcs/get_next_line.c	\
 
 OBJ	=	$(SRC:.c = .o)
 

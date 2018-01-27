@@ -47,7 +47,7 @@ int fct_while(char *str, char **env)
 
 	while (1) {
 		write(1, "[Darth_Shell]$> ", 16);
-		if ((value = read(0, str, 1024)) == 0) {
+		if ((str = get_next_line(0)) == 0) {
 			write(1, "exit\n", 5);
 			exit(0);
 		}

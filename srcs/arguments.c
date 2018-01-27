@@ -10,7 +10,7 @@
 int check_env(char *str)
 {
 	if (my_strlen(str) == 3 &&
-	str[0] == 'e' && str[1] == 'n' && str[2] == 'v')
+	str[0] == 'e' && str[1] == 'n' && str[2] == 'v' && str[3] == '\0')
 		return (0);
 	return (-1);
 }

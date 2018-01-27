@@ -9,7 +9,8 @@
 
 int check_exit(char *str)
 {
-	if (str[0] == 'e' && str[1] == 'x' && str[2] == 'i' && str[3] == 't')
+	if (str[0] == 'e' && str[1] == 'x' && str[2] == 'i' && str[3] == 't'
+	&& str[4] == '\0')
 		return (0);
 	return (-1);
 }

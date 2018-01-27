@@ -18,6 +18,7 @@
 #include <dirent.h>
 #include "minishell1.h"
 #include "printf.h"
+#include "get_next_line.h"
 
 void my_putchar(char c);
 int my_isneg(int nb);
