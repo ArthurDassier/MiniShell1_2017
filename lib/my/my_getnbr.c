@@ -25,7 +25,7 @@ int my_getnbr(char *str)
 			nb = nb + str[i] - '0';
 			i++;
 			if (nb > 2147483647)
-				return(0);
+				return (0);
 		} else
 			return (nb * isneg);
 	}
