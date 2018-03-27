@@ -19,13 +19,11 @@ int my_getnbr(char *str)
 			isneg = isneg * -1;
 		i = i + 1;
 	}
-	while (str[i] != '\0') {
+	while (str[i] != '\0' && nb < 2147483647) {
 		if (str[i] >= '0' && str[i] <= '9') {
 			nb = nb * 10;
 			nb = nb + str[i] - '0';
 			i++;
-			if (nb > 2147483647)
-				return (0);
 		} else
 			return (nb * isneg);
 	}

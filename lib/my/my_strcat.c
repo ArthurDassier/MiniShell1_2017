@@ -7,42 +7,26 @@
 
 #include <stdlib.h>
 
-char *my_strcat_pwd(char *dest, char const *src)
+int my_strlen(char *);
+
+char *my_strcat(char *dest, char *src)
 {
+	char	*tmp = malloc(sizeof(char) * (my_strlen(dest) +
+	my_strlen(src) + 1));
 	int	i = 0;
 	int	j = 0;
-	char	*tmp = malloc(sizeof(char) * 1024);
+	int	count = 0;
 
 	while (dest[i] != '\0') {
-		tmp[i] = dest[i];
+		tmp[count] = dest[i];
+		++count;
 		++i;
 	}
 	while (src[j] != '\0') {
-		tmp[i] = src[j];
-		i++;
-		j++;
+		tmp[count] = src[j];
+		++count;
+		++j;
 	}
-	tmp[i] = '\0';
-	return (tmp);
-}
-
-char *my_strcat(char *dest, char const *src)
-{
-	int	i = 0;
-	int	j = 0;
-	char	*tmp = malloc(sizeof(char) * 1024);
-
-	while (dest[i] != '\0') {
-		tmp[i] = dest[i];
-		++i;
-	}
-	tmp[i] = '/';
-	++i;
-	while (src[j] != '\0') {
-		tmp[i] = src[j];
-		i++;
-		j++;
-	}
-	tmp[i] = '\0';
+	tmp[count] = '\0';
 	return (tmp);
 }

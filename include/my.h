@@ -1,24 +1,16 @@
 /*
-** EPITECH PROJECT, 2017
+** EPITECH PROJECT, 2018
 ** my.h
 ** File description:
 ** mes_prototypes
 */
 
-#ifndef MYLIB_H
-#define MYLIB_H
-
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#ifndef MYLIB_H_
+#define MYLIB_H_
 #include <unistd.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <dirent.h>
-#include "minishell1.h"
-#include "printf.h"
-#include "get_next_line.h"
 
 void my_putchar(char c);
 int my_isneg(int nb);
@@ -34,6 +26,8 @@ int my_strncmp(char const *s1, char const *s2, int n);
 char *my_strcat(char *dest, char const *src);
 int my_put_nbr_base(int nb, char *base);
 long my_put_nbr_base_long(long long nb, char *base);
+char **my_path_to_wordtab(char *str, int nb);
+char **my_str_to_wordtab(char *str);
 char *my_realloc(char *str);
 void my_puterror(char *str);
 int cti(char c);

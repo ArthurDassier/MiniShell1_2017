@@ -6,6 +6,8 @@
 */
 
 #include "my.h"
+#include "minishell1.h"
+#include "printf.h"
 
 list_path *init_cl(char *path)
 {
@@ -55,7 +57,6 @@ void del_elem_list(list_path **first_elem, char *path)
 			actual->next = actual->next->next;
 			return;
 		}
-
 		actual = actual->next;
 	}
 }

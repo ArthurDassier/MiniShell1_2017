@@ -1,12 +1,12 @@
 /*
-** EPITECH PROJECT, 2017
+** EPITECH PROJECT, 2018
 ** printf.h
 ** File description:
 ** prots
 */
 
-#ifndef PRINTF_H
-#define PRINT_H
+#ifndef PRINTF_H_
+#define PRINTF_H_
 
 #include "my.h"
 

@@ -6,68 +6,47 @@
 */
 
 #include "my.h"
+#include "get_next_line.h"
 
-int get_path(char **env)
+int find_path(char **env)
 {
-	for (int i = 0; env[i]; ++i) {
-		if (env[i][0] == 'P' && env[i][1] == 'A' &&
-		env[i][2] == 'T' && env[i][3] == 'H' && env[i][4] == '=')
-			return (i);
+	int	i = 0;
+
+	while (env[i][0] != 'P' || env[i][1] != 'A' || env[i][2] != 'T'
+	||  env[i][3] != 'H' || env[i][4] != '=')
+		++i;
+	return (i);
+}
+
+int test_path(char **tab, char **com)
+{
+	int	i = 0;
+	int	j = -1;
+
+	tab[0] = my_strcat("/", tab[0]);
+	while (com[i] != NULL) {
+		j = access(my_strcat(com[i], tab[0]), X_OK);
+		if (j == 0)
+			return (1);
+		++i;
 	}
 	return (-1);
 }
 
-list_path *init_chain_path(char **env)
+int main(int ac, char *av[], char **env)
 {
-	list_path	*element = malloc(sizeof(list_path));
+	char	**tab = NULL;
+	int	path = find_path(env);
+	char	**com = my_path_to_wordtab(env[path], 5);
 
-	element = init_cl(env[0]);
-	for (int i = 1; env[i]; ++i)
-		insert_end(&element, env[i]);
-	return (element);
-}
-
-void wait_com(char *str, char **env, list_path *list_p)
-{
-	pid_t	pid;
-	int	wstatus;
-
-	if ((pid = fork()) == 0)
-		bin_tests(str, list_p, env);
-	else {
-		waitpid(pid, &wstatus, 0);
-		fault(wstatus);
-	}
-}
-
-int fct_while(char *str, char **env)
-{
-	int		value = 0;
-	list_path	*list_p = init_chain_path(env);
-
-	while (1) {
-		write(1, "[Darth_Shell]$> ", 16);
-		if ((str = get_next_line(0)) == 0) {
-			write(1, "exit\n", 5);
-			exit(0);
+	(void) ac;
+	(void) av;
+	while (42) {
+		my_putstr("[Darth_Shell]$> ");
+		tab = my_str_to_wordtab(get_next_line(0));
+		if (test_path(tab, com) == 1) {
+			my_putstr("OK\n");
 		}
-		str[value - 1] = '\0';
-		check_arg(str, list_p, env);
 	}
-	return (0);
-}
-
-int main(int argc, char *argv[], char **env)
-{
-	char	*str = malloc(sizeof(char) * 1024);
-
-	if (str == NULL)
-		return (84);
-	(void)argv;
-	if (argc > 1) {
-		my_puterror("Too many arguments !\n");
-		return (84);
-	}
-	fct_while(str, env);
 	return (0);
 }

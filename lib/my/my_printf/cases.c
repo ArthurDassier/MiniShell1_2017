@@ -20,7 +20,7 @@ int case_d(va_list ap)
 	int	nb = va_arg(ap, int);
 
 	my_put_nbr(nb);
-	return(0);
+	return (0);
 }
 
 int case_c(va_list ap)

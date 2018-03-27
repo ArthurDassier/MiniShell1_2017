@@ -7,7 +7,6 @@
 
 #include "../include/get_next_line.h"
 
-
 char *get_next_line(int fd)
 {
 	int	check = 1;
@@ -19,6 +18,8 @@ char *get_next_line(int fd)
 		if (buffer[0] == '\n')
 			break;
 		str[i] = buffer[0];
+		str[i + 1] = '\0';
+		my_realloc(str);
 		++i;
 	}
 	if (check == 0 && i == 0)

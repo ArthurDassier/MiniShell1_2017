@@ -2,48 +2,43 @@
 ## EPITECH PROJECT, 2017
 ## Makefile
 ## File description:
-## Makefile
+## a_makefile_for_projetcs
 ##
 
-SRC	=	srcs/brain.c		\
-		srcs/chainlist.c	\
-		srcs/errors.c		\
-		srcs/bin_commands.c	\
-		srcs/arguments.c	\
-		srcs/environement.c	\
-		srcs/cd_call.c		\
-		srcs/exit.c		\
-		srcs/seg_dump.c		\
-		srcs/get_next_line.c	\
+CC	=	gcc -g3
 
-OBJ	=	$(SRC:.c = .o)
+RM	=	rm -rf
+
+CFLAGS	+=	-Wall -Wextra
+
+CFLAGS	+=	-I./include
 
 NAME	=	mysh
 
-LIB_DIR	=	./lib
+SRCS	=	srcs/brain.c		\
+		srcs/chainlist.c	\
+		srcs/get_next_line.c	\
 
-MY.H_DIR	=	./include
+OBJS	=	$(SRCS:.c=.o)
 
-CC	=	gcc -g
+LIB =		-L./lib -lmy
 
-C_FLAGS	=	-Wall -Wextra
+all: $(NAME)
 
-LIB_FLAG	=	-L$(LIB_DIR) -lmy
-
-INCL_FLAG	=	-I$(MY.H_DIR)
-
-all:	$(NAME)
-
-$(NAME):	$(OBJ)
-		$(MAKE) -C lib/my
-		$(CC) -o $(NAME) $(OBJ) $(C_FLAGS) $(LIB_FLAG) $(INCL_FLAG)
+$(NAME): $(OBJS)
+	make -C ./lib/my
+	$(CC) $(OBJS) -o $(NAME) $(LIB)
 
 clean:
-	rm -f *.o
+	$(RM) $(OBJS)
+	make -C ./lib/my clean
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
+	$(RM) lib/*.a
+	make -C ./lib/my fclean
+
 
 re: fclean all
 
-.PHONY: fclean all re clean
+.PHONY: all clean fclean re

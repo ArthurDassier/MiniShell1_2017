@@ -41,22 +41,19 @@ static void my_init(int (*PointeursurFonction[12])(va_list ap))
 
 int my_printf(char const *str, ...)
 {
-	va_list ap;
-	va_start(ap, str);
+	va_list	ap;
 	int	(*PointeursurFonction[12])(va_list ap);
-	my_init(PointeursurFonction);
 	int	j;
 
+	va_start(ap, str);
+	my_init(PointeursurFonction);
 	for (int i = 0; str[i]; i++) {
 		if (str[i] != '%')
 			my_putchar(str[i]);
 		else {
 			i++;
 			j = str_parser(str[i]);
-			if (j == 84)
-				my_error(str[i]);
-			else
-				PointeursurFonction[j](ap);
+			PointeursurFonction[j](ap);
 		}
 	}
 	va_end(ap);
