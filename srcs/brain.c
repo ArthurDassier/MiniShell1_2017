@@ -18,16 +18,22 @@ int find_path(char **env)
 	return (i);
 }
 
-int test_path(char **tab, char **com)
+int execution(char *order, char **tab, char **env)
+{
+	fork();
+	execve(order, tab, env);
+}
+
+int test_path(char **tab, char **com, char **env)
 {
 	int	i = 0;
 	int	j = -1;
 
 	tab[0] = my_strcat("/", tab[0]);
 	while (com[i] != NULL) {
-		j = access(my_strcat(com[i], tab[0]), X_OK);
+		j = access(my_strcat(com[i], tab[0]), F_OK || X_OK);
 		if (j == 0)
-			return (1);
+			return (execution(my_strcat(com[i], tab[0]), tab, env));
 		++i;
 	}
 	return (-1);
@@ -38,15 +44,15 @@ int main(int ac, char *av[], char **env)
 	char	**tab = NULL;
 	int	path = find_path(env);
 	char	**com = my_path_to_wordtab(env[path], 5);
+	int	num = 0;
 
 	(void) ac;
 	(void) av;
 	while (42) {
 		my_putstr("[Darth_Shell]$> ");
 		tab = my_str_to_wordtab(get_next_line(0));
-		if (test_path(tab, com) == 1) {
-			my_putstr("OK\n");
-		}
+		if ((num = test_path(tab, com, env)) == -1)
+			return (84);
 	}
 	return (0);
 }
