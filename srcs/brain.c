@@ -7,6 +7,8 @@
 
 #include "my.h"
 #include "get_next_line.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int find_path(char **env)
 {
@@ -20,8 +22,14 @@ int find_path(char **env)
 
 int execution(char *order, char **tab, char **env)
 {
-	fork();
-	execve(order, tab, env);
+	pid_t	child_pid;
+
+	child_pid = fork();
+	if (child_pid == 0)
+		execve(order, tab, env);
+	else
+		wait(NULL);
+	return (0);
 }
 
 int test_path(char **tab, char **com, char **env)
@@ -44,15 +52,14 @@ int main(int ac, char *av[], char **env)
 	char	**tab = NULL;
 	int	path = find_path(env);
 	char	**com = my_path_to_wordtab(env[path], 5);
-	int	num = 0;
 
 	(void) ac;
 	(void) av;
 	while (42) {
 		my_putstr("[Darth_Shell]$> ");
 		tab = my_str_to_wordtab(get_next_line(0));
-		if ((num = test_path(tab, com, env)) == -1)
-			return (84);
+		if (test_path(tab, com, env) == -1)
+			my_putstr("wtf is that command\n");
 	}
 	return (0);
 }
