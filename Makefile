@@ -17,7 +17,9 @@ NAME	=	mysh
 
 SRCS	=	srcs/brain.c		\
 		srcs/chainlist.c	\
+		srcs/simple_com.c	\
 		srcs/get_next_line.c	\
+		srcs/env.c
 
 OBJS	=	$(SRCS:.c=.o)
 

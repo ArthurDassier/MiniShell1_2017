@@ -46,7 +46,7 @@ char **my_str_to_wordtab(char *str)
 	int	j = 0;
 
 	tab[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
-	for (int count = 0; str[count] != '\0'; ++count) {
+	for (int count = 0; str != NULL && str[count] != '\0'; ++count) {
 		if (str[count] == ' ' || str[count] == '\t') {
 			count_space(str, &count);
 			tab[i][j] = '\0';
@@ -59,6 +59,7 @@ char **my_str_to_wordtab(char *str)
 		++j;
 	}
 	tab[i][j] = '\0';
-	tab[i + 1] = NULL;
+	if (str != NULL)
+		tab[i + 1] = NULL;
 	return (tab);
 }

@@ -17,7 +17,12 @@ struct list_path
 };
 
 
-list_path *init_cl(char **env);
-list_path *insert_end(list_path **first_elem, char *path);
+list_path *init_cl(char **);
+list_path *insert_end(list_path **, char *);
+void del_elem_list(list_path **, char *);
+char *find_path(list_path *);
+int test_path(char **, char **, char **);
+void print_list(list_path *);
+void my_setenv(char **, list_path *);
 
 #endif

@@ -11,54 +11,67 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-char *find_path(list_path *my_env)
+int try_build(char **tab, list_path *my_env)
 {
-	list_path	*tmp = my_env;
-
-	while (my_strncmp(tmp->name, "PATH=", 4) != 0)
-		tmp = tmp->next;
-	return (tmp->name);
+	if (my_strcmp(tab[0], "env") == 0 ||
+	(my_strcmp(tab[0], "setenv") == 0 && !tab[1])) {
+		print_list(my_env);
+		return (0);
+	}
+	if (my_strcmp(tab[0], "setenv") == 0) {
+		my_setenv(tab, my_env);
+		return (0);
+	}
+	if (my_strcmp(tab[0], "unsetenv") == 0) {
+		del_elem_list(&my_env, tab[1]);
+		return (0);
+	}
+	return (1);
 }
 
-int exec(char *order, char **tab, char **env)
+char **reset_env(list_path *my_env, char **new_env)
 {
-	pid_t	child_pid;
+	list_path	*temp = my_env;
+	int		i = 0;
 
-	child_pid = fork();
-	if (child_pid == 0)
-		execve(order, tab, env);
-	else
-		wait(NULL);
-	return (0);
-}
-
-int test_path(char **tab, char **com)
-{
-	int	i = 0;
-	int	j = -1;
-
-	tab[0] = my_strcat("/", tab[0]);
-	while (com[i] != NULL) {
-		j = access(my_strcat(com[i], tab[0]), F_OK || X_OK);
-		if (j == 0)
-			return (exec(my_strcat(com[i], tab[0]), tab, NULL));
+	while (temp != NULL) {
+		temp = temp->next;
 		++i;
 	}
-	return (-1);
+	new_env = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	temp = my_env;
+	while (temp != NULL) {
+		new_env[i] = temp->name;
+		temp = temp->next;
+		++i;
+	}
+	return (new_env);
 }
 
 int shell(list_path *my_env)
 {
 	char	**tab;
-	char	*path = find_path(my_env);
-	char	**com = my_path_to_wordtab(path, 5);
+	char	*path;
+	char	**com;
+	char	*str;
+	char	**new_env;
 
 	while (42) {
+		new_env = reset_env(my_env, new_env);
+		path = find_path(my_env);
+		com = my_path_to_wordtab(path, 5);
 		my_putstr("[Darth_Shell]$> ");
-		tab = my_str_to_wordtab(get_next_line(0));
-		if (test_path(tab, com) == -1)
-			my_putstr("wtf is that command\n");
+		str = get_next_line(0);
+		if (str == NULL) {
+			my_putstr("exit\n");
+			return (0);
+		}
+		tab = my_str_to_wordtab(str);
+		if (try_build(tab, my_env) == 1)
+			test_path(tab, com, new_env);
 	}
+	return (0);
 }
 
 int main(int ac, char *av[], char **env)
@@ -66,6 +79,8 @@ int main(int ac, char *av[], char **env)
 	list_path	*my_env = init_cl(env);
 	int		i = 1;
 
+	(void) ac;
+	(void) av;
 	if (my_env == NULL)
 		return (84);
 	while (env[i]) {
