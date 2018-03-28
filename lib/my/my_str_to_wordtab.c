@@ -6,8 +6,7 @@
 */
 
 #include <stdlib.h>
-
-int my_strlen(char *);
+#include "../../include/my.h"
 
 char **my_path_to_wordtab(char *str, int nb)
 {
@@ -39,12 +38,32 @@ void count_space(char *str, int *count)
 	--*count;
 }
 
+char *clean_str(char *str)
+{
+	char	*tmp = malloc(sizeof(char) * my_strlen(str + 1));
+	int	i = 0;
+	int	j = 0;
+
+	while (str[i] != '\0') {
+		if (i != 0 && (str[i] == ' ' || str[i] == '\t'))
+			tmp[j++] = str[i++];
+		while (str[i] == ' ' || str[i] == '\t')
+			++i;
+		tmp[j] = str[i];
+		++i;
+		++j;
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
+
 char **my_str_to_wordtab(char *str)
 {
 	char	**tab = malloc(sizeof(char *) * (my_strlen(str) + 1));
 	int	i = 0;
 	int	j = 0;
 
+	str = clean_str(str);
 	tab[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
 	for (int count = 0; str != NULL && str[count] != '\0'; ++count) {
 		if (str[count] == ' ' || str[count] == '\t') {

@@ -24,7 +24,7 @@ char *my_strncpy(char *dest, char const *src, int n);
 char *my_revstr(char *str);
 int my_strcmp(char const *s1, char const *s2);
 int my_strncmp(char const *s1, char const *s2, int n);
-char *my_strcat(char *dest, char const *src);
+char *my_strcat(char *dest, char *src);
 int my_put_nbr_base(int nb, char *base);
 long my_put_nbr_base_long(long long nb, char *base);
 char **my_path_to_wordtab(char *str, int nb);

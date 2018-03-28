@@ -6,12 +6,9 @@
 */
 
 #include <unistd.h>
+#include "../../include/my.h"
 
-void my_putchar(char c);
-void my_putchar(char c);
-int my_strlen(char *);
-
-int my_put_nbr_base(unsigned int nb, char *base)
+int my_put_nbr_base(int nb, char *base)
 {
 	int	res = nb / my_strlen(base);
 	int	rest = nb % my_strlen(base);

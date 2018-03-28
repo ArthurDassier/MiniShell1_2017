@@ -8,10 +8,11 @@
 #include "my.h"
 #include "get_next_line.h"
 #include "minishell1.h"
+#include "printf.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int try_build(char **tab, list_path *my_env)
+int try_env(char **tab, list_path *my_env)
 {
 	if (my_strcmp(tab[0], "env") == 0 ||
 	(my_strcmp(tab[0], "setenv") == 0 && !tab[1])) {
@@ -26,8 +27,19 @@ int try_build(char **tab, list_path *my_env)
 		del_elem_list(&my_env, tab[1]);
 		return (0);
 	}
+	return (1);
+}
+
+int try_build(char **tab, list_path *my_env)
+{
+	if (try_env(tab, my_env) == 0)
+		return (0);
 	if (my_strcmp(tab[0], "exit") == 0)
 		exit(my_getnbr(tab[1]));
+	if (my_strcmp(tab[0], "cd") == 0) {
+		the_cd(tab[1], my_env);
+		return (0);
+	}
 	return (1);
 }
 
@@ -51,13 +63,11 @@ char **reset_env(list_path *my_env, char **new_env)
 	return (new_env);
 }
 
-int shell(list_path *my_env)
+int shell(list_path *my_env, char **new_env, char **tab)
 {
-	char	**tab;
 	char	*path;
 	char	**com;
 	char	*str;
-	char	**new_env;
 
 	while (42) {
 		new_env = reset_env(my_env, new_env);
@@ -79,6 +89,8 @@ int shell(list_path *my_env)
 int main(int ac, char *av[], char **env)
 {
 	list_path	*my_env = init_cl(env);
+	char		**new_env = NULL;
+	char		**tab = NULL;
 	int		i = 1;
 
 	(void) ac;
@@ -89,7 +101,7 @@ int main(int ac, char *av[], char **env)
 		insert_end(&my_env, env[i]);
 		++i;
 	}
-	if (shell(my_env) == 84)
+	if (shell(my_env, new_env, tab) == 84)
 		return (84);
 	return (0);
 }

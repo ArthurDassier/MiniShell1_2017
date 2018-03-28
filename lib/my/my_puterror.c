@@ -6,8 +6,7 @@
 */
 
 #include <unistd.h>
-
-int my_strlen(char const *str);
+#include "../../include/my.h"
 
 void my_puterror(char *str)
 {

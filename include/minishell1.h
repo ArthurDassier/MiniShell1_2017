@@ -8,14 +8,13 @@
 #ifndef MINI_SHELL_H
 #define MINI_SHELL_H
 
-typedef struct list_path list_path;
+typedef struct s_list_path list_path;
 
-struct list_path
+struct s_list_path
 {
 	char		*name;
 	list_path	*next;
 };
-
 
 list_path *init_cl(char **);
 list_path *insert_end(list_path **, char *);
@@ -24,5 +23,6 @@ char *find_path(list_path *);
 int test_path(char **, char **, char **);
 void print_list(list_path *);
 void my_setenv(char **, list_path *);
+void the_cd(char *tab, list_path *my_env);
 
 #endif

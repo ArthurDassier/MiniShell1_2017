@@ -6,8 +6,7 @@
 */
 
 #include <stdlib.h>
-
-int my_strlen(char *);
+#include "../../include/my.h"
 
 char *my_strcat(char *dest, char *src)
 {

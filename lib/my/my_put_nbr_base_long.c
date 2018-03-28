@@ -6,10 +6,7 @@
 */
 
 #include <unistd.h>
-
-void my_putchar(char c);
-void my_putchar(char c);
-int my_strlen(char *);
+#include "../../include/my.h"
 
 long my_put_nbr_base_long(long long nb, char *base)
 {

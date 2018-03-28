@@ -6,8 +6,7 @@
 */
 
 #include <stdlib.h>
-
-int my_strlen(char const *str);
+#include "../../include/my.h"
 
 char *my_realloc(char *str)
 {
