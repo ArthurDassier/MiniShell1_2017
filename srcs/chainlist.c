@@ -15,9 +15,10 @@ list_path *init_cl(char **env)
 
 	if (element == NULL)
 		return (NULL);
-	if (env == NULL)
-		return (NULL);
-	element->name = env[0];
+	if (env[0] == NULL)
+		exit(84);
+	else
+		element->name = env[0];
 	element->next = NULL;
 	return (element);
 }

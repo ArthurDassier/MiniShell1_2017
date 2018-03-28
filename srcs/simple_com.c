@@ -39,6 +39,7 @@ int test_path(char **tab, char **com, char **new_env)
 {
 	int	i = 0;
 	int	j = -1;
+
 	tab[0] = my_strcat("/", tab[0]);
 	while (com[i] != NULL) {
 		j = access(my_strcat(com[i], tab[0]), F_OK || X_OK);
@@ -46,6 +47,8 @@ int test_path(char **tab, char **com, char **new_env)
 			return (exec(my_strcat(com[i], tab[0]), tab, new_env));
 		++i;
 	}
-	my_printf("%s: Command not found.\n", ++tab[0]);
+	if (access(++tab[0], F_OK || X_OK) == 0)
+		return (exec(tab[0], NULL, new_env));
+	my_printf("%s: Command not found.\n", tab[0]);
 	return (-1);
 }

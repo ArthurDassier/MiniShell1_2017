@@ -26,6 +26,8 @@ int try_build(char **tab, list_path *my_env)
 		del_elem_list(&my_env, tab[1]);
 		return (0);
 	}
+	if (my_strcmp(tab[0], "exit") == 0)
+		exit(my_getnbr(tab[1]));
 	return (1);
 }
 
