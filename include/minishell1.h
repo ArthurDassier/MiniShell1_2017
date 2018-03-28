@@ -12,8 +12,12 @@ typedef struct list_path list_path;
 
 struct list_path
 {
-	char		*path_name;
+	char		*name;
 	list_path	*next;
 };
+
+
+list_path *init_cl(char **env);
+list_path *insert_end(list_path **first_elem, char *path);
 
 #endif

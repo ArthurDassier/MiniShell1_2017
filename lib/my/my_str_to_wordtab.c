@@ -32,6 +32,13 @@ char **my_path_to_wordtab(char *str, int nb)
 	return (tab);
 }
 
+void count_space(char *str, int *count)
+{
+	while (str[*count] == ' ' || str[*count] == '\t')
+		++*count;
+	--*count;
+}
+
 char **my_str_to_wordtab(char *str)
 {
 	char	**tab = malloc(sizeof(char *) * (my_strlen(str) + 1));
@@ -40,7 +47,8 @@ char **my_str_to_wordtab(char *str)
 
 	tab[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
 	for (int count = 0; str[count] != '\0'; ++count) {
-		if (str[count] == ' ') {
+		if (str[count] == ' ' || str[count] == '\t') {
+			count_space(str, &count);
 			tab[i][j] = '\0';
 			++i;
 			tab[i] = malloc(sizeof(char) * my_strlen(str));

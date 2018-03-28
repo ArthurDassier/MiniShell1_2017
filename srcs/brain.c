@@ -7,20 +7,20 @@
 
 #include "my.h"
 #include "get_next_line.h"
+#include "minishell1.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int find_path(char **env)
+char *find_path(list_path *my_env)
 {
-	int	i = 0;
+	list_path	*tmp = my_env;
 
-	while (env[i][0] != 'P' || env[i][1] != 'A' || env[i][2] != 'T'
-	||  env[i][3] != 'H' || env[i][4] != '=')
-		++i;
-	return (i);
+	while (my_strncmp(tmp->name, "PATH=", 4) != 0)
+		tmp = tmp->next;
+	return (tmp->name);
 }
 
-int execution(char *order, char **tab, char **env)
+int exec(char *order, char **tab, char **env)
 {
 	pid_t	child_pid;
 
@@ -32,7 +32,7 @@ int execution(char *order, char **tab, char **env)
 	return (0);
 }
 
-int test_path(char **tab, char **com, char **env)
+int test_path(char **tab, char **com)
 {
 	int	i = 0;
 	int	j = -1;
@@ -41,25 +41,38 @@ int test_path(char **tab, char **com, char **env)
 	while (com[i] != NULL) {
 		j = access(my_strcat(com[i], tab[0]), F_OK || X_OK);
 		if (j == 0)
-			return (execution(my_strcat(com[i], tab[0]), tab, env));
+			return (exec(my_strcat(com[i], tab[0]), tab, NULL));
 		++i;
 	}
 	return (-1);
 }
 
-int main(int ac, char *av[], char **env)
+int shell(list_path *my_env)
 {
-	char	**tab = NULL;
-	int	path = find_path(env);
-	char	**com = my_path_to_wordtab(env[path], 5);
+	char	**tab;
+	char	*path = find_path(my_env);
+	char	**com = my_path_to_wordtab(path, 5);
 
-	(void) ac;
-	(void) av;
 	while (42) {
 		my_putstr("[Darth_Shell]$> ");
 		tab = my_str_to_wordtab(get_next_line(0));
-		if (test_path(tab, com, env) == -1)
+		if (test_path(tab, com) == -1)
 			my_putstr("wtf is that command\n");
 	}
+}
+
+int main(int ac, char *av[], char **env)
+{
+	list_path	*my_env = init_cl(env);
+	int		i = 1;
+
+	if (my_env == NULL)
+		return (84);
+	while (env[i]) {
+		insert_end(&my_env, env[i]);
+		++i;
+	}
+	if (shell(my_env) == 84)
+		return (84);
 	return (0);
 }
