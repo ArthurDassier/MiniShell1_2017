@@ -46,3 +46,17 @@ void my_setenv(char **tab, list_path *my_env)
 	}
 	insert_end(&my_env, my_strcat(my_strcat(tab[1], "="), tab[2]));
 }
+
+void my_setpath(char *ph_nm, char *path, list_path *my_env)
+{
+	list_path	*temp = my_env;
+
+	while (temp != NULL) {
+		if (my_strncmp(ph_nm, temp->name, my_strlen(ph_nm)) == 0) {
+			temp->name = modif_list(temp->name, path);
+			return;
+		}
+		temp = temp->next;
+	}
+	insert_end(&my_env, my_strcat(my_strcat(ph_nm, "="), path));
+}

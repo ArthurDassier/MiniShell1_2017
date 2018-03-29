@@ -23,6 +23,7 @@ char *find_path(list_path *);
 int test_path(char **, char **, char **);
 void print_list(list_path *);
 void my_setenv(char **, list_path *);
-void the_cd(char *tab, list_path *my_env);
+void the_cd(char *, list_path *);
+void my_setpath(char *, char *, list_path *);
 
 #endif

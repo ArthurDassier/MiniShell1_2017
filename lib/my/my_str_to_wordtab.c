@@ -69,13 +69,11 @@ char **my_str_to_wordtab(char *str)
 		if (str[count] == ' ' || str[count] == '\t') {
 			count_space(str, &count);
 			tab[i][j] = '\0';
-			++i;
-			tab[i] = malloc(sizeof(char) * my_strlen(str));
+			tab[++i] = malloc(sizeof(char) * my_strlen(str));
 			j = 0;
 			++count;
 		}
-		tab[i][j] = str[count];
-		++j;
+		tab[i][j++] = str[count];
 	}
 	tab[i][j] = '\0';
 	if (str != NULL)
