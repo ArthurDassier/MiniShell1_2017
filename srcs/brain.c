@@ -63,6 +63,7 @@ char **reset_env(list_path *my_env, char **new_env)
 		temp = temp->next;
 		++i;
 	}
+	new_env[i] = NULL;
 	return (new_env);
 }
 
