@@ -33,7 +33,7 @@ void my_setenv(char **tab, list_path *my_env)
 {
 	list_path	*temp = my_env;
 
-	if (tab[3]) {
+	if (tab[3] != NULL) {
 		my_putstr("setenv: Too many arguments.\n");
 		return;
 	}
@@ -45,6 +45,18 @@ void my_setenv(char **tab, list_path *my_env)
 		temp = temp->next;
 	}
 	insert_end(&my_env, my_strcat(my_strcat(tab[1], "="), tab[2]));
+}
+
+void no_tab_setenv(char **tab, list_path *my_env)
+{
+	char	**tmp = malloc(sizeof(char *) * 4);
+
+	tmp[0] = tab[0];
+	tmp[1] = tab[1];
+	tmp[2] = malloc(sizeof(char));
+	tmp[2][0] = '\0';
+	tmp[3] = NULL;
+	my_setenv(tmp, my_env);
 }
 
 void my_setpath(char *ph_nm, char *path, list_path *my_env)

@@ -18,7 +18,7 @@ static char *go_home(list_path *my_env)
 
 	while (tmp != NULL && my_strncmp(tmp->name, "HOME=", 4) != 0)
 		tmp = tmp->next;
-	str = malloc(sizeof(char) * my_strlen(tmp->name));
+	str = malloc(sizeof(char) * 4096);
 	while (tmp->name[i] != '\0') {
 		str[j] = tmp->name[i];
 		++i;
@@ -37,7 +37,7 @@ static char *go_old(list_path *my_env)
 
 	while (tmp != NULL && my_strncmp(tmp->name, "OLDPWD=", 6) != 0)
 		tmp = tmp->next;
-	str = malloc(sizeof(char) * my_strlen(tmp->name));
+	str = malloc(sizeof(char) * 4096);
 	while (tmp->name[i] != '\0') {
 		str[j] = tmp->name[i];
 		++i;
@@ -50,16 +50,18 @@ static char *go_old(list_path *my_env)
 void the_cd(char *tab, list_path *my_env)
 {
 	char	*path = tab;
-	char	*old_pwd = NULL;
+	char	*old_pwd = malloc(sizeof(char) * 4096);
 
 	old_pwd = getcwd(old_pwd, 4096);
-	if (tab == NULL || tab[0] == '~')
+	if (tab == NULL || tab[0] == '~') {
 		path = go_home(my_env);
-	if (chdir(path) == -1 && tab[0] != '-') {
+		chdir(path);
+	}
+	else if (chdir(path) == -1 && tab[0] != '-') {
 		my_printf("%s: No such file or directory.\n", tab);
 		return;
 	}
-	if (tab[0] == '-')
+	else if (tab[0] == '-')
 		chdir(go_old(my_env));
 	my_setpath("OLDPWD", old_pwd, my_env);
 	my_setpath("PWD", getcwd(path, 4096), my_env);

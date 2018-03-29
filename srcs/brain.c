@@ -20,7 +20,10 @@ int try_env(char **tab, list_path *my_env)
 		return (0);
 	}
 	if (my_strcmp(tab[0], "setenv") == 0) {
-		my_setenv(tab, my_env);
+		if (tab[2])
+			my_setenv(tab, my_env);
+		else
+			no_tab_setenv(tab, my_env);
 		return (0);
 	}
 	if (my_strcmp(tab[0], "unsetenv") == 0) {
@@ -79,6 +82,7 @@ int shell(list_path *my_env, char **new_env, char **tab)
 			my_putstr("exit\n");
 			return (0);
 		}
+		str = clean_str_end(str);
 		tab = my_str_to_wordtab(str);
 		if (try_build(tab, my_env) == 1)
 			test_path(tab, com, new_env);
