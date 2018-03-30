@@ -43,7 +43,7 @@ static int try_build(char **tab, list_path *my_env)
 		the_cd(tab[1], my_env);
 		return (0);
 	}
-	return (1);
+	return (-1);
 }
 
 static char **reset_env(list_path *my_env, char **new_env)
@@ -67,12 +67,15 @@ static char **reset_env(list_path *my_env, char **new_env)
 	return (new_env);
 }
 
-static void command(list_path *my_env, char **com, char **new_env, char *str)
+int command(list_path *my_env, char **com, char **new_env, char *str)
 {
 	char	**tab = my_str_to_wordtab(str);
+	int	ret = 0;
 
-	if (try_build(tab, my_env) == 1)
-		test_path(tab, com, new_env);
+	ret = try_build(tab, my_env);
+	if (ret == -1)
+		ret = test_path(tab, com, new_env);
+	return (ret);
 }
 
 int shell(list_path *my_env, char **new_env)
@@ -80,6 +83,7 @@ int shell(list_path *my_env, char **new_env)
 	char	*path;
 	char	**com;
 	char	*str;
+	int	ret = 0;
 
 	while (42) {
 		new_env = reset_env(my_env, new_env);
@@ -89,10 +93,10 @@ int shell(list_path *my_env, char **new_env)
 		str = get_next_line(0);
 		if (str == NULL) {
 			my_putstr("exit\n");
-			return (0);
+			return (ret);
 		}
 		if (str[0] != '\0')
-			command(my_env, com, new_env, str);
+			ret = command(my_env, com, new_env, str);
 	}
 	return (0);
 }

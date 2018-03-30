@@ -22,7 +22,5 @@ int main(int ac, char *av[], char **env)
 		insert_end(&my_env, env[i]);
 		++i;
 	}
-	if (shell(my_env, new_env) == 84)
-		return (84);
-	return (0);
+	return (shell(my_env, new_env));
 }

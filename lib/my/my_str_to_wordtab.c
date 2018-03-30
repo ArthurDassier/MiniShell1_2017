@@ -1,5 +1,5 @@
 /*
-** EPITECH PROcountECT, 2018
+** EPITECH PROJECT, 2018
 ** my_str_to_wordtab.c
 ** File description:
 ** Arthur

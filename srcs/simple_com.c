@@ -27,6 +27,8 @@ static int exec(char *order, char **tab, char **new_env)
 {
 	pid_t	child_pid;
 
+	if (tab != NULL)
+		++tab[0];
 	child_pid = fork();
 	if (child_pid == 0) {
 		execve(order, tab, new_env);
@@ -48,7 +50,7 @@ int test_path(char **tab, char **com, char **new_env)
 		++i;
 	}
 	if (access(++tab[0], F_OK || X_OK) == 0)
-		return (exec(tab[0], NULL, new_env));
+		return (exec(tab[0], tab, new_env));
 	my_printf("%s: Command not found.\n", tab[0]);
-	return (-1);
+	return (1);
 }
