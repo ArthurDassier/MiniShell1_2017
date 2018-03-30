@@ -15,7 +15,8 @@ CFLAGS	+=	-I./include
 
 NAME	=	mysh
 
-SRCS	=	srcs/brain.c		\
+SRCS	=	srcs/main.c		\
+		srcs/shell.c		\
 		srcs/chainlist.c	\
 		srcs/simple_com.c	\
 		srcs/get_next_line.c	\

@@ -55,8 +55,7 @@ char *clean_str(char *str)
 			tmp[j] = str[i];
 			space = 0;
 			++j;
-		}
-		if ((str[i] == ' ' || str[i] == '\t') && space == 0) {
+		} else if ((str[i] == ' ' || str[i] == '\t') && space == 0) {
 			tmp[j] = str[i];
 			++j;
 			space = 1;
@@ -106,8 +105,6 @@ char **my_str_to_wordtab(char *str)
 			++col;
 			j = 0;
 			++i;
-			printf(">>%s\n", str);
-			printf("strlen : %d\n", my_strlen(str));
 			tab[col] = malloc(sizeof(char) * (my_strlen(str) + 1));
 		}
 		tab[col][j] = str[i];

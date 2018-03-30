@@ -52,9 +52,9 @@ static char *go_old(list_path *my_env)
 void the_cd(char *tab, list_path *my_env)
 {
 	char	*path = tab;
-	char	*old_pwd = malloc(sizeof(char) * 4096);
+	char	*old_pwd = NULL;
 
-	old_pwd = getcwd(old_pwd, 4096);
+	old_pwd = getcwd(old_pwd, 0);
 	if (tab == NULL || tab[0] == '~') {
 		path = go_home(my_env);
 		chdir(path);
@@ -65,6 +65,7 @@ void the_cd(char *tab, list_path *my_env)
 	}
 	else if (tab[0] == '-')
 		chdir(go_old(my_env));
+	path = NULL;
 	my_setpath("OLDPWD", old_pwd, my_env);
-	my_setpath("PWD", getcwd(path, 4096), my_env);
+	my_setpath("PWD", getcwd(path, 0), my_env);
 }

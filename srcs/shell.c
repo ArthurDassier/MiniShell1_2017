@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2017
-** brain.c
+** shell.c
 ** File description:
 ** blabla
 */
@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int try_env(char **tab, list_path *my_env)
+static int try_env(char **tab, list_path *my_env)
 {
 	if (my_strcmp(tab[0], "env") == 0 ||
 	(my_strcmp(tab[0], "setenv") == 0 && !tab[1])) {
@@ -33,7 +33,7 @@ int try_env(char **tab, list_path *my_env)
 	return (1);
 }
 
-int try_build(char **tab, list_path *my_env)
+static int try_build(char **tab, list_path *my_env)
 {
 	if (try_env(tab, my_env) == 0)
 		return (0);
@@ -46,7 +46,7 @@ int try_build(char **tab, list_path *my_env)
 	return (1);
 }
 
-char **reset_env(list_path *my_env, char **new_env)
+static char **reset_env(list_path *my_env, char **new_env)
 {
 	list_path	*temp = my_env;
 	int		i = 0;
@@ -67,7 +67,15 @@ char **reset_env(list_path *my_env, char **new_env)
 	return (new_env);
 }
 
-int shell(list_path *my_env, char **new_env, char **tab)
+static void command(list_path *my_env, char **com, char **new_env, char *str)
+{
+	char	**tab = my_str_to_wordtab(str);
+
+	if (try_build(tab, my_env) == 1)
+		test_path(tab, com, new_env);
+}
+
+int shell(list_path *my_env, char **new_env)
 {
 	char	*path;
 	char	**com;
@@ -83,29 +91,8 @@ int shell(list_path *my_env, char **new_env, char **tab)
 			my_putstr("exit\n");
 			return (0);
 		}
-		tab = my_str_to_wordtab(str);
-		if (try_build(tab, my_env) == 1)
-			test_path(tab, com, new_env);
+		if (str[0] != '\0')
+			command(my_env, com, new_env, str);
 	}
-	return (0);
-}
-
-int main(int ac, char *av[], char **env)
-{
-	list_path	*my_env = init_cl(env);
-	char		**new_env = NULL;
-	char		**tab = NULL;
-	int		i = 1;
-
-	(void) ac;
-	(void) av;
-	if (my_env == NULL)
-		return (84);
-	while (env[i]) {
-		insert_end(&my_env, env[i]);
-		++i;
-	}
-	if (shell(my_env, new_env, tab) == 84)
-		return (84);
 	return (0);
 }

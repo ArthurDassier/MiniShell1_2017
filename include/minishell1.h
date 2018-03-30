@@ -16,6 +16,7 @@ struct s_list_path
 	list_path	*next;
 };
 
+int shell(list_path *, char **);
 list_path *init_cl(char **);
 list_path *insert_end(list_path **, char *);
 void del_elem_list(list_path **, char *);
