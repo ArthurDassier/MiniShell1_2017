@@ -26,6 +26,5 @@ void my_setenv(char **, list_path *);
 void no_tab_setenv(char **, list_path *);
 void the_cd(char *, list_path *);
 void my_setpath(char *, char *, list_path *);
-char *clean_str_end(char *);
 
 #endif

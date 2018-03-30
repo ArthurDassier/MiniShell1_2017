@@ -52,14 +52,3 @@ int test_path(char **tab, char **com, char **new_env)
 	my_printf("%s: Command not found.\n", tab[0]);
 	return (-1);
 }
-
-char *clean_str_end(char *str)
-{
-	int	i = my_strlen(str) - 1;
-
-	while (str[i] == ' ' || str[i] == '\t') {
-		str[i] = '\0';
-		--i;
-	}
-	return (str);
-}

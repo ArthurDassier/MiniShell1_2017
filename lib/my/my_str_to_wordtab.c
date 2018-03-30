@@ -8,73 +8,112 @@
 #include <stdlib.h>
 #include "../../include/my.h"
 
-char **my_path_to_wordtab(char *str, int nb)
+int count_word(char *str)
 {
-	char	**tab = malloc(sizeof(char *) * (my_strlen(str) + 1));
+	int	word = 0;
+	int	letter = 0;
 	int	i = 0;
-	int	j = 0;
 
-	tab[i] = malloc(sizeof(char) * 1024);
-	for (int count = nb; str[count] != '\0'; ++count) {
-		if (str[count] == ':') {
-			tab[i++][j] = '\0';
-			tab[i] = malloc(sizeof(char) * 1024);
-			j = 0;
-			++count;
+	while (str[i] != '\0') {
+		if ((str[i] != ' ' && str[i] != '\t') && letter == 0) {
+			++word;
+			letter = 1;
 		}
-		tab[i][j] = str[count];
-		++j;
+		if ((str[i] == ' ' || str[i] == '\t') && letter == 1)
+			letter = 0;
+		++i;
 	}
-	tab[i][j] = '\0';
-	tab[++i] = NULL;
-	return (tab);
+	return (word);
 }
 
-void count_space(char *str, int *count)
+int count_word_path(char *str)
 {
-	while (str[*count] == ' ' || str[*count] == '\t')
-		++*count;
-	--*count;
+	int	word = 0;
+	int	letter = 0;
+	int	i = 0;
+
+	while (str[i] != '\0') {
+		if (str[i] != ':' && letter == 0) {
+			++word;
+			letter = 1;
+		}
+		if (str[i] == ':' && letter == 1)
+			letter = 0;
+		++i;
+	}
+	return (word);
 }
 
 char *clean_str(char *str)
 {
 	char	*tmp = malloc(sizeof(char) * (my_strlen(str) + 1));
-	int	i = 0;
 	int	j = 0;
+	int	space = 1;
 
-	while (str[i] != '\0') {
-		if (i != 0 && (str[i] == ' ' || str[i] == '\t'))
-			tmp[j++] = str[i++];
-		while (str[i] == ' ' || str[i] == '\t')
-			++i;
-		tmp[j] = str[i];
-		++i;
-		++j;
+	for (int i = 0; str[i] != '\0'; ++i) {
+		if (str[i] != ' ' && str[i] != '\t') {
+			tmp[j] = str[i];
+			space = 0;
+			++j;
+		}
+		if ((str[i] == ' ' || str[i] == '\t') && space == 0) {
+			tmp[j] = str[i];
+			++j;
+			space = 1;
+		}
 	}
 	tmp[j] = '\0';
+	if (tmp[--j] == ' ')
+		tmp[j] = '\0';
 	return (tmp);
+}
+
+char **my_path_to_wordtab(char *str)
+{
+	char	**tab = malloc(sizeof(char *) * (count_word_path(str) + 1));
+	int	j = 0;
+	int	col = 0;
+
+	str = clean_str(str);
+	tab[col] = malloc(sizeof(char) * (my_strlen(str) + 1));
+	for (int i = 0; str[i] != '\0'; ++i) {
+		if (str[i] == ':') {
+			tab[col][j] = '\0';
+			++col;
+			j = 0;
+			++i;
+			tab[col] = malloc(sizeof(char) * (my_strlen(str) + 1));
+		}
+		tab[col][j] = str[i];
+		++j;
+	}
+	tab[col][j] = '\0';
+	tab[++col] = NULL;
+	return (tab);
 }
 
 char **my_str_to_wordtab(char *str)
 {
-	char	**tab = malloc(sizeof(char *) * (my_strlen(str) + 1));
-	int	i = 0;
+	char	**tab = malloc(sizeof(char *) * (count_word(str) + 1));
 	int	j = 0;
+	int	col = 0;
 
 	str = clean_str(str);
-	tab[i] = malloc(sizeof(char) * 1024);
-	for (int count = 0; str != NULL && str[count] != '\0'; ++count) {
-		if (str[count] == ' ' || str[count] == '\t') {
-			tab[i][j] = '\0';
-			tab[++i] = malloc(sizeof(char) * 1024);
+	tab[col] = malloc(sizeof(char) * (my_strlen(str) + 1));
+	for (int i = 0; str[i] != '\0'; ++i) {
+		if (str[i] == ' ' || str[i] == '\t') {
+			tab[col][j] = '\0';
+			++col;
 			j = 0;
-			++count;
+			++i;
+			printf(">>%s\n", str);
+			printf("strlen : %d\n", my_strlen(str));
+			tab[col] = malloc(sizeof(char) * (my_strlen(str) + 1));
 		}
-		tab[i][j++] = str[count];
+		tab[col][j] = str[i];
+		++j;
 	}
-	tab[i][j] = '\0';
-	if (str != NULL)
-		tab[++i] = NULL;
+	tab[col][j] = '\0';
+	tab[++col] = NULL;
 	return (tab);
 }

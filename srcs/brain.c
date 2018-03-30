@@ -76,14 +76,13 @@ int shell(list_path *my_env, char **new_env, char **tab)
 	while (42) {
 		new_env = reset_env(my_env, new_env);
 		path = find_path(my_env);
-		com = my_path_to_wordtab(path, 5);
+		com = my_path_to_wordtab(path);
 		my_putstr("[Darth_Shell]$> ");
 		str = get_next_line(0);
 		if (str == NULL) {
 			my_putstr("exit\n");
 			return (0);
 		}
-		str = clean_str_end(str);
 		tab = my_str_to_wordtab(str);
 		if (try_build(tab, my_env) == 1)
 			test_path(tab, com, new_env);

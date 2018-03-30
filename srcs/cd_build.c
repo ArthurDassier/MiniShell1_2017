@@ -12,17 +12,18 @@
 static char *go_home(list_path *my_env)
 {
 	list_path	*tmp = my_env;
-	char		*str;
+	char		*str = malloc(sizeof(char) * 1024);
 	int		i = 5;
 	int		j = 0;
 
 	while (tmp != NULL && my_strncmp(tmp->name, "HOME=", 4) != 0)
 		tmp = tmp->next;
-	str = malloc(sizeof(char) * 4096);
 	while (tmp->name[i] != '\0') {
 		str[j] = tmp->name[i];
 		++i;
 		++j;
+		str[j] = '\0';
+		str = my_realloc(str);
 	}
 	str[j] = '\0';
 	return (str);
@@ -31,17 +32,18 @@ static char *go_home(list_path *my_env)
 static char *go_old(list_path *my_env)
 {
 	list_path	*tmp = my_env;
-	char		*str;
+	char		*str = malloc(sizeof(char) * 1024);
 	int		i = 7;
 	int		j = 0;
 
 	while (tmp != NULL && my_strncmp(tmp->name, "OLDPWD=", 6) != 0)
 		tmp = tmp->next;
-	str = malloc(sizeof(char) * 4096);
 	while (tmp->name[i] != '\0') {
 		str[j] = tmp->name[i];
 		++i;
 		++j;
+		str[j] = '\0';
+		str = my_realloc(str);
 	}
 	str[j] = '\0';
 	return (str);
