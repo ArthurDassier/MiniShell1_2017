@@ -27,7 +27,10 @@ static int try_env(char **tab, list_path *my_env)
 		return (0);
 	}
 	if (my_strcmp(tab[0], "unsetenv") == 0) {
-		del_elem_list(&my_env, tab[1]);
+		if (!tab[1])
+			my_putstr("unsetenv: Too few arguments.\n");
+		else
+			del_elem_list(&my_env, tab[1]);
 		return (0);
 	}
 	return (1);
