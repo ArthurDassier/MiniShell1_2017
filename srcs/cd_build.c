@@ -8,6 +8,9 @@
 #include "my.h"
 #include "minishell1.h"
 #include "printf.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 static char *go_home(list_path *my_env)
 {
@@ -60,7 +63,10 @@ void the_cd(char *tab, list_path *my_env)
 		chdir(path);
 	}
 	else if (chdir(path) == -1 && tab[0] != '-') {
-		my_printf("%s: No such file or directory.\n", tab);
+		if (open(path,  O_RDONLY) < 0)
+			my_printf("%s: No such file or directory.\n", tab);
+		else
+			my_printf("%s: Not a directory.\n", tab);
 		return;
 	}
 	else if (tab[0] == '-')
