@@ -12,6 +12,26 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+int error_status(int wstatus)
+{
+	int	i = 0;
+
+	if (WIFSIGNALED(wstatus)) {
+		if (WTERMSIG(wstatus)) {
+			write(1, "Segmentation fault", 19);
+			i = 1;
+		}
+		if (WCOREDUMP(wstatus)) {
+			write(1, " (core dumped)", 14);
+			i = 1;
+		}
+		if (i == 1)
+			write(1, "\n", 1);
+		return (1);
+	}
+	return (0);
+}
+
 char *find_path(list_path *my_env)
 {
 	list_path	*tmp = my_env;
@@ -26,6 +46,7 @@ char *find_path(list_path *my_env)
 static int exec(char *order, char **tab, char **new_env)
 {
 	pid_t	child_pid;
+	int	wstatus;
 
 	if (tab != NULL)
 		++tab[0];
@@ -33,7 +54,8 @@ static int exec(char *order, char **tab, char **new_env)
 	if (child_pid == 0) {
 		execve(order, tab, new_env);
 	} else
-		wait(NULL);
+		if (wait(&wstatus) != -1)
+			return (error_status(wstatus));
 	return (0);
 }
 
