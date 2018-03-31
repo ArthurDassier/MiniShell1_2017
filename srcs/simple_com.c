@@ -21,10 +21,6 @@ int error_status(int wstatus)
 			write(2, "Segmentation fault", 19);
 			i = 1;
 		}
-		if (WCOREDUMP(wstatus)) {
-			write(2, " (core dumped)", 14);
-			i = 1;
-		}
 		if (i == 1)
 			write(2, "\n", 1);
 		return (1);
