@@ -14,15 +14,9 @@
 
 int error_status(int wstatus)
 {
-	int	i = 0;
-
 	if (WIFSIGNALED(wstatus)) {
-		if (WTERMSIG(wstatus)) {
-			write(2, "Segmentation fault", 19);
-			i = 1;
-		}
-		if (i == 1)
-			write(2, "\n", 1);
+		if (WTERMSIG(wstatus))
+			my_putstr("Segmentation fault\n");
 		return (1);
 	}
 	return (0);
@@ -69,6 +63,6 @@ int test_path(char **tab, char **com, char **new_env)
 	}
 	if (access(++tab[0], F_OK || X_OK) == 0)
 		return (exec(tab[0], tab, new_env));
-	my_printf_err("%e: Command not found.\n", tab[0]);
+	my_printf("%s: Command not found.\n", tab[0]);
 	return (1);
 }

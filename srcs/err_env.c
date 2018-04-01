@@ -17,7 +17,7 @@ static int try_env_simple(list_path *my_env)
 static int try_first_letter(char c)
 {
 	if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
-		my_puterror("setenv: Variable name must"
+		my_putstr("setenv: Variable name must"
 		" begin with a letter.\n");
 		return (1);
 	}
@@ -35,7 +35,7 @@ static int try_setenv(char **tab, list_path *my_env)
 		|| (tab[1][i] >= 'a' && tab[1][i] <= 'z')
 		|| (tab[1][i] >= '0' && tab[1][i] <= '9')
 		|| (tab[1][i] == '_'))) {
-			my_puterror ("setenv: Variable name must contain"
+			my_putstr("setenv: Variable name must contain"
 			" alphanumeric characters.\n");
 			return (1);
 		}
@@ -51,7 +51,7 @@ static int try_setenv(char **tab, list_path *my_env)
 static int try_unsetenv(char **tab, list_path *my_env)
 {
 	if (!tab[1]) {
-		my_puterror("unsetenv: Too few arguments.\n");
+		my_putstr("unsetenv: Too few arguments.\n");
 		return (1);
 	} else
 		del_elem_list(&my_env, tab[1]);
@@ -64,8 +64,8 @@ int try_env(char **tab, list_path *my_env)
 	(my_strcmp(tab[0], "setenv") == 0 && !tab[1]))
 		return (try_env_simple(my_env));
 	if (my_strcmp(tab[0], "setenv") == 0)
-		return (try_setenv(tab, my_env));
+		return (0);
 	if (my_strcmp(tab[0], "unsetenv") == 0)
-		return (try_unsetenv(tab, my_env));
+		return (0);
 	return (-1);
 }
