@@ -65,7 +65,6 @@ int shell(list_path *my_env, char **new_env)
 	char	*path;
 	char	**com;
 	char	*str;
-	int	ret = 0;
 
 	while (42) {
 		new_env = reset_env(my_env, new_env);
@@ -75,10 +74,10 @@ int shell(list_path *my_env, char **new_env)
 		str = get_next_line(0);
 		if (str == NULL) {
 			my_putstr("exit\n");
-			return (ret);
+			return (0);
 		}
 		if (str[0] != '\0')
-			ret = command(my_env, com, new_env, str);
+			command(my_env, com, new_env, str);
 	}
 	return (0);
 }
