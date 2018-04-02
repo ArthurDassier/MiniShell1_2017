@@ -83,7 +83,7 @@ int shell(list_path *my_env, char **new_env)
 		path = find_path(my_env);
 		if (path != NULL)
 			com = my_path_to_wordtab(path);
-		my_putstr("[Darth_Shell]$> ");
+		write(1, "$> ", 3);
 		str = get_next_line(0);
 		if (str == NULL) {
 			my_putstr("exit\n");
