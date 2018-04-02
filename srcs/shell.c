@@ -69,10 +69,12 @@ int shell(list_path *my_env, char **new_env)
 	while (42) {
 		new_env = reset_env(my_env, new_env);
 		path = find_path(my_env);
-		com = my_path_to_wordtab(path);
+		if (path != NULL)
+			com = my_path_to_wordtab(path);
 		my_putstr("[Darth_Shell]$> ");
 		str = get_next_line(0);
-		if (str == NULL) {
+		if (str == NULL || new_env == NULL
+		|| path == NULL || com == NULL) {
 			my_putstr("exit\n");
 			return (0);
 		}

@@ -60,12 +60,14 @@ static int try_unsetenv(char **tab, list_path *my_env)
 
 int try_env(char **tab, list_path *my_env)
 {
+	if (tab == NULL || my_env == NULL)
+		return (0);
 	if (my_strcmp(tab[0], "env") == 0 ||
 	(my_strcmp(tab[0], "setenv") == 0 && !tab[1]))
 		return (try_env_simple(my_env));
 	if (my_strcmp(tab[0], "setenv") == 0)
-		return (0);
+		return (try_setenv(tab, my_env));
 	if (my_strcmp(tab[0], "unsetenv") == 0)
-		return (0);
+		return (try_unsetenv(tab, my_env));
 	return (-1);
 }
