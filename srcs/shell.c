@@ -84,6 +84,7 @@ int shell(list_path *my_env, char **new_env)
 	char	*str;
 
 	while (42) {
+		str = NULL;
 		new_env = reset_env(my_env, new_env);
 		path = find_path(my_env);
 		if (path != NULL)
