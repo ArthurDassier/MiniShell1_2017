@@ -14,10 +14,16 @@
 
 int error_status(int wstatus)
 {
+	int	ret = wstatus / 256;
+
 	if (WIFSIGNALED(wstatus)) {
-		if (WTERMSIG(wstatus))
+		if (WTERMSIG(wstatus) == 11) {
 			my_puterror("Segmentation fault\n");
-		return (1);
+			return (139);
+		} else if (WTERMSIG(wstatus) == 8) {
+			my_puterror("Floating exception\n");
+			return (136);
+		}
 	}
 	return (0);
 }
