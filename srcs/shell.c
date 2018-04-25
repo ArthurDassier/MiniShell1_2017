@@ -19,7 +19,8 @@ static int try_build(char **tab, list_path *my_env)
 	if (tab == NULL)
 		return (0);
 	if (my_env == NULL) {
-		my_printf_err("%e: Command not found.\n", tab[0]);
+		my_puterror(tab[0]);
+		my_puterror(": Command not found.\n");
 		return (0);
 	}
 	ret = try_env(tab, my_env);
