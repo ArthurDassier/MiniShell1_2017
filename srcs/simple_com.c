@@ -16,6 +16,7 @@ int error_status(int wstatus)
 {
 	int	ret = wstatus / 256;
 
+	(void) ret;
 	if (WIFSIGNALED(wstatus)) {
 		if (WTERMSIG(wstatus) == 11) {
 			my_puterror("Segmentation fault\n");
