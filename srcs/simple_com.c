@@ -65,6 +65,7 @@ int test_path(char **tab, char **com, char **new_env)
 	}
 	if (access(++tab[0], F_OK || X_OK) == 0)
 		return (exec(tab[0], tab, new_env));
-	my_printf_err("%e: Command not found.\n", tab[0]);
+	my_putstr(tab[0]);
+	my_putstr(": Command not found.\n");
 	return (1);
 }
