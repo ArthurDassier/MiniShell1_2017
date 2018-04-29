@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** my_strncmp
 ** File description:
-** strncmp
+** my_strncmp
 */
 
 

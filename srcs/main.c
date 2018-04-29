@@ -22,5 +22,5 @@ int main(int ac, char *av[], char **env)
 		insert_end(&my_env, env[i]);
 		++i;
 	}
-	return (shell(my_env, new_env));
+	return (shell(my_env, new_env, NULL));
 }

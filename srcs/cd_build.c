@@ -52,17 +52,15 @@ static char *go_old(list_path *my_env)
 	return (str);
 }
 
-void the_cd(char *tab, list_path *my_env)
+void the_cd(char *tab, list_path *my_env, char *old_pwd)
 {
 	char	*path = tab;
-	char	*old_pwd = NULL;
 
 	old_pwd = getcwd(old_pwd, 0);
 	if (tab == NULL || tab[0] == '~') {
 		path = go_home(my_env);
 		chdir(path);
-	}
-	else if (chdir(path) == -1 && tab[0] != '-') {
+	} else if (chdir(path) == -1 && tab[0] != '-') {
 		if (open(path,  O_RDONLY) < 0) {
 			my_putstr(tab);
 			my_putstr(": No such file or directory.\n");
@@ -71,8 +69,7 @@ void the_cd(char *tab, list_path *my_env)
 			my_puterror(": Not a directory.\n");
 		}
 		return;
-	}
-	else if (tab[0] == '-')
+	} else if (tab[0] == '-')
 		chdir(go_old(my_env));
 	path = NULL;
 	my_setpath("OLDPWD", old_pwd, my_env);

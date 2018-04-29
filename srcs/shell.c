@@ -29,7 +29,7 @@ static int try_build(char **tab, list_path *my_env)
 	if (my_strcmp(tab[0], "exit") == 0)
 		exit(my_getnbr(tab[1]));
 	if (my_strcmp(tab[0], "cd") == 0) {
-		the_cd(tab[1], my_env);
+		the_cd(tab[1], my_env, NULL);
 		return (0);
 	}
 	return (-1);
@@ -76,12 +76,11 @@ int command(list_path *my_env, char **com, char **new_env, char *str)
 	return (ret);
 }
 
-int shell(list_path *my_env, char **new_env)
+int shell(list_path *my_env, char **new_env, char *str)
 {
 	size_t	len = 0;
-	char	*path;
-	char	**com;
-	char	*str;
+	char	*path = NULL;
+	char	**com = NULL;
 
 	while (42) {
 		str = NULL;
