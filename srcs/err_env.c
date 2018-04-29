@@ -41,7 +41,7 @@ static int try_setenv(char **tab, list_path *my_env)
 		}
 		++i;
 	}
-	if (tab[2])
+	if (count_line(tab) == 3)
 		return (my_setenv(tab, my_env));
 	else
 		return (no_tab_setenv(tab, my_env));
