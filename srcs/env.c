@@ -8,6 +8,15 @@
 #include "my.h"
 #include "minishell1.h"
 
+int count_line(char **tab)
+{
+	int i = 0;
+
+	while (tab[i])
+		++i;
+	return (i);
+}
+
 static char *modif_list(char *str, char *arg)
 {
 	char	*tmp = malloc(sizeof(char) *

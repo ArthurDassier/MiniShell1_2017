@@ -28,5 +28,6 @@ int try_env(char **, list_path *);
 int no_tab_setenv(char **, list_path *);
 void the_cd(char *, list_path *);
 void my_setpath(char *, char *, list_path *);
+int count_line(char **);
 
 #endif
